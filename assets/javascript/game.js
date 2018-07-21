@@ -48,6 +48,7 @@ $(document).ready(function () {
 
         //Display the defender at the bottom.
         $("#defenderdiv").html(character.displayHTML());
+        $("#instructions").empty();
         displayEnemies();
 
     }
@@ -56,9 +57,15 @@ $(document).ready(function () {
     //this function should display the enemies in the enemy field.  It will be called after the defender is chosen.
     //It will also clear them from the top and remove the text saying to choose a defender.
     function displayEnemies() {
-        for (var i = 0; i < 2; i++) {
+        for (var i = 0; i < 4; i++) {
             if (!game.charactersArray[i].isDefender) {
+
+                if(game.charactersArray[i].hp !== 0){
                 $("#enemies").append(game.charactersArray[i].displayHTML());
+
+                }else{
+                    $("#defeated").append(game.charactersArray[i].displayHTML());
+                }
             }
         }
     }
@@ -66,6 +73,8 @@ $(document).ready(function () {
     //Create objects for each character.
     var character1 = new Character("character1", 40, 5, 5);
     var character2 = new Character("character2", 30, 6, 6);
+    var character3 = new Character("character3", 50, 5, 6);
+    var character4 = new Character("character4", 70, 6, 6);
     console.log(character1);
     // var character2 = new character;
     //Initialize the game with a clear record.
