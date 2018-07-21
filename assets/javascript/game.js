@@ -6,12 +6,18 @@ $(document).ready(function () {
         this.ap = ap;
         this.cap = cap;
         this.isDefender = false;
-        this.displayHTML = function(){
+        game.charactersArray.push(this);
+        console.log("The characters array is " + game.charactersArray);
+
+        //This function outputs the html to display the image associated with the character.
+        
+        this.displayHTML = function () {
             return "<img src ='assets/images/" + this.name + ".jpg'>";
         }
     }
 
     var game = {
+        charactersArray: [],
 
         initialize: function (winsSoFar, lossesSoFar) {
             this.wins = winsSoFar;
@@ -42,13 +48,18 @@ $(document).ready(function () {
 
         //Display the defender at the bottom.
         $("#defenderdiv").html(character.displayHTML());
+        displayEnemies();
 
     }
-    
-    function displayEnemies(){
-        for(var i=0; i<4; i++){
-            //this function should display the enemies in the enemy field.  It will be called after the defender is chosen.
-            //It will also clear them from the top and remove the text saying to choose a defender.
+
+
+    //this function should display the enemies in the enemy field.  It will be called after the defender is chosen.
+    //It will also clear them from the top and remove the text saying to choose a defender.
+    function displayEnemies() {
+        for (var i = 0; i < 2; i++) {
+            if (!game.charactersArray[i].isDefender) {
+                $("#enemies").append(game.charactersArray[i].displayHTML());
+            }
         }
     }
 
