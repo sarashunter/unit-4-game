@@ -9,10 +9,10 @@ $(document).ready(function () {
         game.charactersArray.push(this);
         console.log("The characters array is " + game.charactersArray);
 
-        //This function outputs the html to display the image associated with the character.
-        
+        //This function outputs the html to display the image card associated with the character.
+
         this.displayHTML = function () {
-            return "<img src ='assets/images/" + this.name + ".jpg'>";
+            return '<div class="card d-inline-block" style="width: 18rem;"><img class="card-img-top" src="assets/images/' + this.name + '.jpg" alt="Card image cap"> <div class="card-body"><p class="card-text">HP: ' + this.hp + '</p><p><button type="button" class="btn-char btn btn-primary" ' + 'value ="' + this.name + '" >Choose</button></div></div>';
         }
     }
 
@@ -26,8 +26,8 @@ $(document).ready(function () {
             console.log("Wins so far: " + winsSoFar);
             console.log("Losses so far " + lossesSoFar);
             this.hasDefenderBeenChosen = false;
-            // character1 = Character("character1", 50, 5, 10);
-            // character2 = Character("character2", 90, 10, 15);
+
+            displayEnemies();
         }
 
     }
@@ -38,7 +38,7 @@ $(document).ready(function () {
 
     }
     function chooseDefender(character) {
-
+        console.log("The character passed to chooseDefender is " + character);
         character.isDefender = true;
         game.hasDefenderBeenChosen = true;
         game.defender = character;
@@ -49,21 +49,21 @@ $(document).ready(function () {
         //Display the defender at the bottom.
         $("#defenderdiv").html(character.displayHTML());
         $("#instructions").empty();
+        $("#enemies").empty();
         displayEnemies();
 
     }
 
 
-    //this function should display the enemies in the enemy field.  It will be called after the defender is chosen.
-    //It will also clear them from the top and remove the text saying to choose a defender.
+    //This function displays the enemies and the defender in the appropriate fields.
     function displayEnemies() {
         for (var i = 0; i < 4; i++) {
             if (!game.charactersArray[i].isDefender) {
 
-                if(game.charactersArray[i].hp !== 0){
-                $("#enemies").append(game.charactersArray[i].displayHTML());
+                if (game.charactersArray[i].hp !== 0) {
+                    $("#enemies").append(game.charactersArray[i].displayHTML());
 
-                }else{
+                } else {
                     $("#defeated").append(game.charactersArray[i].displayHTML());
                 }
             }
@@ -85,6 +85,27 @@ $(document).ready(function () {
             chooseDefender(character1);
         }
     });
+
+    $('div').on("click", ".btn-char", function () {
+        console.log("Class was clicked");
+        var associatedCharacter;
+
+        //This loop gets the character object that has the same name as the value in the button.
+
+        for (var i = 0; i < game.charactersArray.length; i++) {
+            if (game.charactersArray[i].name === $(this).attr("value")) {
+                associatedCharacter = game.charactersArray[i];
+            }
+        }
+        if (!game.hasDefenderBeenChosen) {
+            chooseDefender(associatedCharacter);
+        } else {
+            //Choose enemy?
+            // console.log(this);
+            // console.log("this value: " + $(this).attr("value"))
+            // chooseDefender($(this).attr("value"));
+        }
+    })
 
     $("#2").on("click", function () {
         if (!game.hasDefenderBeenChosen) {
