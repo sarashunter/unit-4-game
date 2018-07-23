@@ -6,13 +6,25 @@ $(document).ready(function () {
         this.ap = ap;
         this.cap = cap;
         this.isDefender = false;
+        this.isEnemy = false;
         game.charactersArray.push(this);
-        console.log("The characters array is " + game.charactersArray);
 
         //This function outputs the html to display the image card associated with the character.
 
+
         this.displayHTML = function () {
-            return '<div class="card d-inline-block" style="width: 18rem;"><img class="card-img-top" src="assets/images/' + this.name + '.jpg" alt="Card image cap"> <div class="card-body"><p class="card-text">HP: ' + this.hp + '</p><p><button type="button" class="btn-char btn btn-primary" ' + 'value ="' + this.name + '" >Choose</button></div></div>';
+            
+            var openingHTML= '<div class="card d-inline-block" style="width: 18rem;"><img class="card-img-top" src="assets/images/' + this.name + '.jpg" alt="Card image cap"> <div class="card-body"><p class="card-text">HP: ' + this.hp + '</p>'
+            var buttonHTML = '<p><button type="button" class="btn-char btn btn-primary" ' + 'value ="' + this.name + '" >Choose</button></p>';
+            var closingHTML = '</div></div>';
+
+            if (this.isDefender || this.isEnemy){
+                return openingHTML +closingHTML;
+            }else if (!game.hasDefenderBeenChosen){
+                return openingHTML + buttonHTML + closingHTML;
+            }else{
+                return openingHTML +buttonHTML + closingHTML;
+            }
         }
     }
 
@@ -22,7 +34,8 @@ $(document).ready(function () {
         initialize: function (winsSoFar, lossesSoFar) {
             this.wins = winsSoFar;
             this.losses = lossesSoFar;
-            this.defender = "me";
+            this.defender = "undecided";
+            this.enemy = "undecided";
             console.log("Wins so far: " + winsSoFar);
             console.log("Losses so far " + lossesSoFar);
             this.hasDefenderBeenChosen = false;
@@ -33,22 +46,17 @@ $(document).ready(function () {
     }
     function fight(defender, enemy) {
         enemy.hp = enemy.hp - defender.ap;
-        console.log(enemy.name + " hp " + enemy.hp);
         defender.ap = defender.ap + defender.ap;
 
     }
     function chooseDefender(character) {
-        console.log("The character passed to chooseDefender is " + character);
         character.isDefender = true;
         game.hasDefenderBeenChosen = true;
         game.defender = character;
 
-        console.log("The defender is " + game.defender.name);
-        console.log("Has the defender been chosen " + game.hasDefenderBeenChosen);
-
         //Display the defender at the bottom.
         $("#defenderdiv").html(character.displayHTML());
-        $("#instructions").empty();
+        $("#instructions").text("Choose the first opponent to attack:");
         $("#enemies").empty();
         displayEnemies();
 
@@ -57,8 +65,9 @@ $(document).ready(function () {
 
     //This function displays the enemies and the defender in the appropriate fields.
     function displayEnemies() {
+        $("#enemies").empty();
         for (var i = 0; i < 4; i++) {
-            if (!game.charactersArray[i].isDefender) {
+            if (!game.charactersArray[i].isDefender && !game.charactersArray[i].isEnemy) {
 
                 if (game.charactersArray[i].hp !== 0) {
                     $("#enemies").append(game.charactersArray[i].displayHTML());
@@ -76,15 +85,21 @@ $(document).ready(function () {
     var character3 = new Character("character3", 50, 5, 6);
     var character4 = new Character("character4", 70, 6, 6);
     console.log(character1);
-    // var character2 = new character;
+
     //Initialize the game with a clear record.
     game.initialize(0, 0);
 
-    $("#1").on("click", function () {
-        if (!game.hasDefenderBeenChosen) {
-            chooseDefender(character1);
+    $('#attack').on("click", function(){
+        fight(game.defender, game.enemy);
+        $("#defenderdiv").html(game.defender.displayHTML());
+        $("#currentenemy").html(game.enemy.displayHTML());
+        if(game.enemy.hp <=0){
+            $("#currentenemy").empty();
+            $("#defeated").append(game.enemy.displayHTML());
+            game.enemy="undecided";
+            $("#instructions").html("Choose your next enemy");
         }
-    });
+    })
 
     $('div').on("click", ".btn-char", function () {
         console.log("Class was clicked");
@@ -99,25 +114,16 @@ $(document).ready(function () {
         }
         if (!game.hasDefenderBeenChosen) {
             chooseDefender(associatedCharacter);
+
+            //Choose your enemy
         } else {
-            //Choose enemy?
-            // console.log(this);
-            // console.log("this value: " + $(this).attr("value"))
-            // chooseDefender($(this).attr("value"));
+            associatedCharacter.isEnemy=true;
+            $("#currentenemy").html(associatedCharacter.displayHTML());
+            displayEnemies();
+            game.enemy=associatedCharacter;
+            $("#instructions").html("Opponents left to defeat:");
+
         }
     })
-
-    $("#2").on("click", function () {
-        if (!game.hasDefenderBeenChosen) {
-            chooseDefender(character2);
-        }
-    });
-
-    console.log("hello" + game.hasDefenderBeenChosen);
-
-
-    console.log(character1);
-    //     $("#1").on("click", fight(character1, character2));
-    // fight(character1, character2);
 
 })
