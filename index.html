@@ -26,37 +26,44 @@
 
     <!-- Begin HTML-->
     <div class="container">
-        <div class="title">Defeated</div>
-        <div id="defeated"></div>
-        <button id="attack">Attack</button>
         <div class="row">
             <div class="col">
-                <div class="title">Defender</div>
-                <div id="defenderdiv"></div>
+                <h2>Defender</h2>
             </div>
             <div class="col">
-                <div id="title">Current Enemy</div>
-                <div id="currentenemy"></div>
+                <h2>Current Enemy</h2>
             </div>
         </div>
         <div class="row">
-            <div id="instructions"></div>
+            <div class="col-4" id="defenderdiv"></div>
+            <div class="col-2" id="attackbutton"></div>
+            <div class="col-4" id="currentenemy"></div>
         </div>
         <div class="row">
-            <div id="enemies"></div>
+            <div id="instructions" class="col"></div>
+        </div>
+        <div class="row">
+            <div id="enemies" class="col"></div>
         </div>
         <div class="row">
             <div class="col">
-                <h4>Wins</h4>
+                <h3>Wins</h3>
                 <div id="winsDiv">
                 </div>
             </div>
             <div class="col">
-                <h4>Losses</h4>
+                <h3>Losses</h3>
                 <div id="lossesDiv">
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col" id="defeatedTitle"></div>
+        </div>
+        <div class="row">
+            <div class="col" id="defeated"></div>
+        </div>
+    </div>
     </div>
 </body>
 
