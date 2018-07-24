@@ -5,19 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Battle Game</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
 </head>
 
 <body>
     <!-- Link to the jQuery Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- 
+    <!-- Link to Bootswatch Bootstrap Darkly Theme-->
 
-    <!-- Link to Bootstrap-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-
-    <link rel="stylesheet"
-    href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 
     <!-- Link to additional stylesheet-->
     <link rel="stylesheet" href="assets/css/style.css">
@@ -26,16 +25,38 @@
     <script type="text/javascript" src="assets/javascript/game.js"></script>
 
     <!-- Begin HTML-->
-    <div class="container-fluid">
-        <div id="instructions">Choose your fighter.</div>
-        <div id="enemies"></div>
+    <div class="container">
         <div class="title">Defeated</div>
         <div id="defeated"></div>
-        <div id="title">Current Enemy</div>
-        <div id="currentenemy"></div>
         <button id="attack">Attack</button>
-        <div class="title">Defender</div>
-        <div id="defenderdiv"></div>
+        <div class="row">
+            <div class="col">
+                <div class="title">Defender</div>
+                <div id="defenderdiv"></div>
+            </div>
+            <div class="col">
+                <div id="title">Current Enemy</div>
+                <div id="currentenemy"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="instructions"></div>
+        </div>
+        <div class="row">
+            <div id="enemies"></div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h4>Wins</h4>
+                <div id="winsDiv">
+                </div>
+            </div>
+            <div class="col">
+                <h4>Losses</h4>
+                <div id="lossesDiv">
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 

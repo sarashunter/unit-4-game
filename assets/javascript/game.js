@@ -60,6 +60,9 @@ $(document).ready(function () {
             $("#currentenemy").empty();
             $("#defenderdiv").empty();
             $("#defeated").empty();
+            $("#winsDiv").text(winsSoFar);
+            $("#lossesDiv").text(lossesSoFar);
+            $("#instructions").text("Choose your defender.");
         }
 
 
@@ -70,7 +73,7 @@ $(document).ready(function () {
         defender.hp = defender.hp - enemy.cap;
         if (defender.hp <= 0) {
             $("#instructions").html("You've lost. <p><button class='btn-restart'>Restart</button></p>");
-            game.losses += 1;
+            game.losses++;
         }
 
     }
